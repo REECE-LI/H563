@@ -98,7 +98,7 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
   /* creation of IMU_Queue */
-  IMU_QueueHandle = osMessageQueueNew (1, sizeof(jy903Data), &IMU_Queue_attributes);
+  IMU_QueueHandle = osMessageQueueNew (1, sizeof(jy931Data), &IMU_Queue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */

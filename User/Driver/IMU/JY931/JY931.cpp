@@ -1,9 +1,9 @@
-#include "JY903.hpp"
+#include "JY931.hpp"
 
 #include <cstdio>
 #include <string.h> // for ::memcpy
 
-JY903::WIT_STATUS JY903::witWriteReg(uint32_t _uiReg, uint16_t _usData)
+JY931::WIT_STATUS JY931::witWriteReg(uint32_t _uiReg, uint16_t _usData)
 {
   uint8_t ucBuff[8];
   if (_uiReg >= REGSIZE)
@@ -20,9 +20,9 @@ JY903::WIT_STATUS JY903::witWriteReg(uint32_t _uiReg, uint16_t _usData)
 }
 
 // 给出接收数组的地址
-uint8_t *JY903::giveReceiveData() { return receiveData; }
+uint8_t *JY931::giveReceiveData() { return receiveData; }
 
-bool JY903::decodeData()
+bool JY931::decodeData()
 {
   uint32_t uiReg1 = 0, uiReg2 = 0, uiReg1Len = 0, uiReg2Len = 0;
   uint16_t *p_usReg1Val = usRegDataBuff;
@@ -116,13 +116,13 @@ bool JY903::decodeData()
   return true;
 }
 
-void JY903::showData()
+void JY931::showData()
 {
 #if 0
-  char dataStr[JY903_BUF_LEN * 3 + 3]; // 每个字节需要3个字符(两位十六进制+空格)，加上换行和结束符
+  char dataStr[JY931_BUF_LEN * 3 + 3]; // 每个字节需要3个字符(两位十六进制+空格)，加上换行和结束符
   int pos = 0;
 
-  for (uint8_t i = 0; i < JY903_BUF_LEN; i++)
+  for (uint8_t i = 0; i < JY931_BUF_LEN; i++)
   {
     pos += sprintf(dataStr + pos, "%02X ", receiveData[i]);
   }
@@ -131,7 +131,7 @@ void JY903::showData()
   // 通过HAL库发送字符串
   HAL_UART_Transmit(&huart1, (uint8_t *)dataStr, strlen(dataStr), HAL_MAX_DELAY);
 #else
-  for (uint8_t i = 0; i < JY903_BUF_LEN; i++)
+  for (uint8_t i = 0; i < JY931_BUF_LEN; i++)
   {
     printf("%02X ", receiveData[i]);
   }
@@ -139,7 +139,7 @@ void JY903::showData()
 #endif
 }
 
-bool JY903::checkData()
+bool JY931::checkData()
 {
   if (receiveData[0] != 0x55) // 检查帧头
   {
@@ -150,7 +150,7 @@ bool JY903::checkData()
   return true;
 }
 
-uint8_t JY903::calcSum(const uint8_t *data, uint32_t len)
+uint8_t JY931::calcSum(const uint8_t *data, uint32_t len)
 {
   uint8_t sum = 0;
   while (len--)
@@ -158,7 +158,7 @@ uint8_t JY903::calcSum(const uint8_t *data, uint32_t len)
   return sum;
 }
 
-void JY903::SensorDataUpdata(uint32_t uiReg, uint32_t uiRegNum)
+void JY931::SensorDataUpdata(uint32_t uiReg, uint32_t uiRegNum)
 {
   int i;
   for (i = 0; i < uiRegNum; i++)

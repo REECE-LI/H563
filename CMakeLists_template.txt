@@ -61,9 +61,11 @@ include_directories(Core/Inc
         Middlewares/ST/ARM/DSP/Inc
         User/
         User/Retarget
-        User/Driver/JY903s
+        User/Driver/IMU/JY931
         User/Task/DefaultTask
         User/Task/IMU_Task
+        User/Quadrotor
+        User/Driver/DSHOT
 )
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H563xx)
@@ -76,6 +78,7 @@ file(GLOB_RECURSE SOURCES "Core/*.*"
         "User/Retarget/*.*"
         "User/Driver/*.*"
         "User/Task/*.*"
+        "User/Quadrotor/*.*"
 )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H563RITX_FLASH.ld)

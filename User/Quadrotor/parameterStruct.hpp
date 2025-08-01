@@ -5,4 +5,8 @@
 #ifndef PARAMETER_HPP
 #define PARAMETER_HPP
 
+
+#define IMU_TEST 0
+#define DSHOT_TEST 1
+
 #endif //PARAMETER_HPP

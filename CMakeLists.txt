@@ -61,10 +61,11 @@ include_directories(Core/Inc
         Middlewares/ST/ARM/DSP/Inc
         User/
         User/Retarget
-        User/Driver/IMU/JY903s
+        User/Driver/IMU/JY931
         User/Task/DefaultTask
         User/Task/IMU_Task
         User/Quadrotor
+        User/Driver/DSHOT
 )
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H563xx)

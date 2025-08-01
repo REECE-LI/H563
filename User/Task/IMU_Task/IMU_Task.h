@@ -13,7 +13,7 @@ extern "C"
 #endif
 
 
-extern uint8_t jy903Data[11];
+extern uint8_t jy931Data[11];
 
 
 

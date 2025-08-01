@@ -8,14 +8,14 @@
 #include "REG.h" // Register address definitions
 #include "usart.h"
 
-#define JY903_BUF_LEN 11
+#define JY931_BUF_LEN 11
 #define ACC_UPDATE 0x01
 #define GYRO_UPDATE 0x02
 #define ANGLE_UPDATE 0x04
 #define MAG_UPDATE 0x08
 #define READ_UPDATE 0x80
 
-class JY903 : public IMU
+class JY931 : public IMU
 {
 public:
 
@@ -31,7 +31,7 @@ public:
     PROTOCOL_NORMAL = 0   ///< Normal UART protocol
   };
 
-  explicit JY903(UART_HandleTypeDef *_huart) : huart(_huart) {}
+  explicit JY931(UART_HandleTypeDef *_huart) : huart(_huart) {}
 
   WIT_STATUS witWriteReg(uint32_t _uiReg, uint16_t _usData);
 
@@ -58,7 +58,7 @@ private:
 
   uint16_t usRegDataBuff[4] = {0};
 
-  uint8_t receiveData[JY903_BUF_LEN] = {};
+  uint8_t receiveData[JY931_BUF_LEN] = {};
 
   uint32_t s_uiWitDataCnt = 0, s_uiProtoclo = 0, s_uiReadRegIndex = 0;
 
