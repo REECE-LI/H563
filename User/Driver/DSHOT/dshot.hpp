@@ -13,6 +13,7 @@ public:
   virtual ~Dshot() = default;
 
   virtual void init() = 0;
+  void unlockDhot();
 
   // throttle: 0~2047, telemetry: 0 or 1
   void send(uint16_t throttle, uint8_t telemetry);
@@ -23,7 +24,7 @@ public:
 
 protected:
   [[nodiscard]] virtual uint8_t computeCRC(uint16_t valueWithTelemetry) const = 0;
-  [[nodiscard]] virtual uint16_t buildPacket(uint16_t throttle, uint8_t telemetry) const= 0;
+  [[nodiscard]] virtual uint16_t buildPacket(uint16_t throttle, uint8_t telemetry) const = 0;
 
   // 16-bit packet -> CCR buffer
   virtual void encodePacket(uint16_t packet) = 0;

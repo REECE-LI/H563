@@ -3,6 +3,8 @@
 //
 
 #include "dshot.hpp"
+#include "User.hpp"
+
 
 void Dshot::send(uint16_t throttle, uint8_t telemetry)
 {
@@ -22,7 +24,15 @@ void Dshot::transferEnable(bool _enable)
     stopDmaTransfer();
 }
 
+void Dshot::unlockDhot()
+{
+  send(0, 0);
+}
+
 void Dshot::onTransmissionComplete()
 {
   busy_ = false; // 传输完成，允许新的发送
 }
+
+
+

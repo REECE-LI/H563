@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "IMU_Task.h"
+#include "LetterShell/shell.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,6 +59,13 @@ const osThreadAttr_t IMU_Task_attributes = {
   .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 512 * 4
 };
+/* Definitions for shellTask */
+osThreadId_t shellTaskHandle;
+const osThreadAttr_t shellTask_attributes = {
+  .name = "shellTask",
+  .priority = (osPriority_t) osPriorityNormal3,
+  .stack_size = 128 * 4
+};
 /* Definitions for IMU_Mutex */
 osMutexId_t IMU_MutexHandle;
 const osMutexAttr_t IMU_Mutex_attributes = {
@@ -67,6 +75,11 @@ const osMutexAttr_t IMU_Mutex_attributes = {
 osMessageQueueId_t IMU_QueueHandle;
 const osMessageQueueAttr_t IMU_Queue_attributes = {
   .name = "IMU_Queue"
+};
+/* Definitions for shellQueue */
+osMessageQueueId_t shellQueueHandle;
+const osMessageQueueAttr_t shellQueue_attributes = {
+  .name = "shellQueue"
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -98,7 +111,9 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
   /* creation of IMU_Queue */
-  IMU_QueueHandle = osMessageQueueNew (1, sizeof(jy931Data), &IMU_Queue_attributes);
+  IMU_QueueHandle = osMessageQueueNew (5, sizeof(jy931Data), &IMU_Queue_attributes);
+  /* creation of shellQueue */
+  shellQueueHandle = osMessageQueueNew (5, sizeof(ShellMsgPtr_t), &shellQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -108,6 +123,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of IMU_Task */
   IMU_TaskHandle = osThreadNew(Start_IMU_Task, NULL, &IMU_Task_attributes);
+
+  /* creation of shellTask */
+  shellTaskHandle = osThreadNew(StartShellTask, NULL, &shellTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -152,6 +170,24 @@ __weak void Start_IMU_Task(void *argument)
     osDelay(1);
   }
   /* USER CODE END IMU_Task */
+}
+
+/* USER CODE BEGIN Header_StartShellTask */
+/**
+* @brief Function implementing the shellTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartShellTask */
+__weak void StartShellTask(void *argument)
+{
+  /* USER CODE BEGIN shellTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END shellTask */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -55,14 +55,8 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern DMA_NodeTypeDef Node_GPDMA1_Channel4;
-extern DMA_QListTypeDef List_GPDMA1_Channel4;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel4;
-extern DMA_NodeTypeDef Node_GPDMA1_Channel3;
-extern DMA_QListTypeDef List_GPDMA1_Channel3;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel3;
-extern DMA_NodeTypeDef Node_GPDMA1_Channel2;
-extern DMA_QListTypeDef List_GPDMA1_Channel2;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel2;
 extern DMA_NodeTypeDef Node_GPDMA1_Channel1;
 extern DMA_QListTypeDef List_GPDMA1_Channel1;
@@ -71,7 +65,11 @@ extern TIM_HandleTypeDef htim3;
 extern DMA_NodeTypeDef Node_GPDMA1_Channel0;
 extern DMA_QListTypeDef List_GPDMA1_Channel0;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel0;
+extern DMA_NodeTypeDef Node_GPDMA1_Channel5;
+extern DMA_QListTypeDef List_GPDMA1_Channel5;
+extern DMA_HandleTypeDef handle_GPDMA1_Channel5;
 extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart1;
 extern TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN EV */
@@ -247,6 +245,20 @@ void GPDMA1_Channel4_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles GPDMA1 Channel 5 global interrupt.
+  */
+void GPDMA1_Channel5_IRQHandler(void)
+{
+  /* USER CODE BEGIN GPDMA1_Channel5_IRQn 0 */
+
+  /* USER CODE END GPDMA1_Channel5_IRQn 0 */
+  HAL_DMA_IRQHandler(&handle_GPDMA1_Channel5);
+  /* USER CODE BEGIN GPDMA1_Channel5_IRQn 1 */
+
+  /* USER CODE END GPDMA1_Channel5_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM1 Update interrupt.
   */
 void TIM1_UP_IRQHandler(void)
@@ -272,6 +284,20 @@ void TIM3_IRQHandler(void)
   /* USER CODE BEGIN TIM3_IRQn 1 */
 
   /* USER CODE END TIM3_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART1 global interrupt.
+  */
+void USART1_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART1_IRQn 0 */
+
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 /**

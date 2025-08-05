@@ -7,6 +7,7 @@
 #include "DSHOT600/dshot600.hpp"
 #include "Driver/IMU/JY931/JY931.hpp"
 #include "IMU_Task.h"
+#include "LetterShell/shell.h"
 #include "app_freertos.h"
 #include "retarget.h"
 #include "tim.h"
@@ -16,7 +17,7 @@
 
 void User(void)
 {
-  RetargetInit(&huart1);
+  // RetargetInit(&huart1);
   HAL_Delay(1);
   // for (;;)
   // {
@@ -60,13 +61,27 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   }
 }
 
-
-
 extern Dshot600 dshot600_One;
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim) {
-  if (htim == &htim3) {
-    // dshot600_One.onTransmissionComplete();
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
+{
+  if (htim == &htim3)
+  {
+    dshot600_One.onTransmissionComplete();
     dshot600_One.transferEnable(false);
   }
+}
 
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+  ShellMsgPtr_t msg{};
+  if (huart == &huart1)
+  {
+    memcpy(msg.data, shellRxBuffer, Size);
+    msg.len = Size;
+    if (osMessageQueuePut(shellQueueHandle, &msg, 0, 0) != osOK)
+    {
+      // 投递失败，要 free(buf)
+    }
+    memset(shellRxBuffer, 0, Size);
+  }
 }
