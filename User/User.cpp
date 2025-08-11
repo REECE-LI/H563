@@ -17,7 +17,7 @@
 
 void User(void)
 {
-  // RetargetInit(&huart1);
+  RetargetInit(&huart1);
   HAL_Delay(1);
   // for (;;)
   // {
@@ -61,13 +61,22 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   }
 }
 
-extern Dshot600 dshot600_One;
+extern Dshot600 dshot600_First;
+extern Dshot600 dshot600_Second;
+extern Dshot600 dshot600_Third;
+extern Dshot600 dshot600_Forth;
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
   if (htim == &htim3)
   {
-    dshot600_One.onTransmissionComplete();
-    dshot600_One.transferEnable(false);
+    dshot600_First.onTransmissionComplete();
+    dshot600_Second.onTransmissionComplete();
+    dshot600_Third.onTransmissionComplete();
+    dshot600_Forth.onTransmissionComplete();
+    dshot600_First.transferEnable(false);
+    dshot600_Second.transferEnable(false);
+    dshot600_Third.transferEnable(false);
+    dshot600_Forth.transferEnable(false);
   }
 }
 

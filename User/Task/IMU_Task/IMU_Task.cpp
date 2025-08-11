@@ -23,7 +23,6 @@ void Start_IMU_Task(void *argument)
 
   // 可能需要校准IMU，但是当前程序上电自动校准
 
-
   osDelay(500);
 #if 1
   shellDisplay(&shell, "\r\nIMU Task is not running, please check the configuration.\r\n");

@@ -11,6 +11,8 @@
 #include "queue.h"
 #include "usart.h"
 
+#include <cstdio>
+
 void StartShellTask(void *argument)
 {
   osDelay(1);
@@ -32,23 +34,83 @@ void StartShellTask(void *argument)
 }
 
 #if USE_SHELL
-extern Dshot600 dshot600_One;
+char buffer[100];
+extern Dshot600 dshot600_First;
+extern Dshot600 dshot600_Second;
+extern Dshot600 dshot600_Third;
+extern Dshot600 dshot600_Forth;
 static void shellDshotCommand(int argc, char *argv[])
 {
-  if (argc < 2)
+  if (argc != 4)
   {
-    shellDisplay(&shell, "Usage: dshot <throttle> [telemetry]\r\n");
+    shellDisplay(&shell, "Usage: dshot <id> <throttle> [telemetry]\r\n");
     return;
   }
+  uint8_t dshotId = atoi(argv[1]);
+  uint16_t throttle = atoi(argv[2]);
+  uint8_t telemetry = (argc > 2) ? atoi(argv[3]) : 0;
 
-  uint16_t throttle = atoi(argv[1]);
-  uint8_t telemetry = (argc > 2) ? atoi(argv[2]) : 0;
-  dshot600_One.send(throttle, telemetry);
+  switch (dshotId)
+  {
+  case 0:
+    dshot600_First.transferEnable(false);
+    dshot600_Second.transferEnable(false);
+    dshot600_Third.transferEnable(false);
+    dshot600_Forth.transferEnable(false);
+    dshot600_First.send(throttle, telemetry);
+    dshot600_Second.send(throttle, telemetry);
+    dshot600_Third.send(throttle, telemetry);
+    dshot600_Forth.send(throttle, telemetry);
+    dshot600_First.transferEnable(true);
+    dshot600_Second.transferEnable(true);
+    dshot600_Third.transferEnable(true);
+    dshot600_Forth.transferEnable(true);
+
+    // sprintf(buffer, "Dshot sent: %d with telemetry %d\r\n", throttle, telemetry);
+    // shellDisplay(&shell, buffer);
+    break;
+  case 1:
+    dshot600_First.transferEnable(false);
+    dshot600_First.send(throttle, telemetry);
+    dshot600_First.transferEnable(true);
+
+    // sprintf(buffer, "Dshot 1 sent: %d with telemetry %d\r\n", throttle, telemetry);
+    // shellDisplay(&shell, buffer);
+    break;
+  case 2:
+    dshot600_Second.transferEnable(false);
+    dshot600_Second.send(throttle, telemetry);
+    dshot600_Second.transferEnable(true);
+
+    // sprintf(buffer, "Dshot 2 sent: %d with telemetry %d\r\n", throttle, telemetry);
+    // shellDisplay(&shell, buffer);
+    break;
+  case 3:
+    dshot600_Third.transferEnable(false);
+    dshot600_Third.send(throttle, telemetry);
+    dshot600_Third.transferEnable(true);
+
+    // sprintf(buffer, "Dshot 3 sent: %d with telemetry %d\r\n", throttle, telemetry);
+    // shellDisplay(&shell, buffer);
+    break;
+  case 4:
+    dshot600_Forth.transferEnable(false);
+    dshot600_Forth.send(throttle, telemetry);
+    dshot600_Forth.transferEnable(true);
+
+    // sprintf(buffer, "Dshot 4 sent: %d with telemetry %d\r\n", throttle, telemetry);
+    // shellDisplay(&shell, buffer);
+    break;
+  default:
+
+    // sprintf(buffer, "Invalid Dshot ID: %d\r\n", dshotId);
+    // shellDisplay(&shell, buffer);
+    break;
+  }
 }
 
 // 在 shellDshotCommand 定义之后，且不在任何函数里：
-SHELL_EXPORT_CMD_EX(dshot, shellDshotCommand,
-                    dshot <throttle> <telemetry>,
+SHELL_EXPORT_CMD_EX(dshot, shellDshotCommand, dshot<throttle><telemetry>,
                     "Send Dshot command with throttle and telemetry");
 
 #endif
