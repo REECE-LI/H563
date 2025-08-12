@@ -53,10 +53,10 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PC13 PC14 PC15 PC0
                            PC1 PC2 PC5 PC8
-                           PC9 PC11 */
+                           PC9 */
   GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_0
                           |GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_8
-                          |GPIO_PIN_9|GPIO_PIN_11;
+                          |GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);

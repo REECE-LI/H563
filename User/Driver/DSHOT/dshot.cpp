@@ -12,6 +12,7 @@ void Dshot::send(uint16_t throttle, uint8_t telemetry)
     return; // 正在发送，丢弃或可以排队（可扩展）
   uint16_t packet = buildPacket(throttle, telemetry);
   encodePacket(packet);
+
 }
 
 void Dshot::transferEnable(bool _enable)
@@ -31,7 +32,7 @@ void Dshot::unlockDhot()
 
 void Dshot::onTransmissionComplete()
 {
-  busy_ = false; // 传输完成，允许新的发送
+  // busy_ = false; // 传输完成，允许新的发送
 }
 
 

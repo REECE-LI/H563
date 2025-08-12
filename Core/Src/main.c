@@ -24,6 +24,7 @@
 #include "gpdma.h"
 #include "i2c.h"
 #include "icache.h"
+#include "lptim.h"
 #include "memorymap.h"
 #include "tim.h"
 #include "usart.h"
@@ -112,6 +113,9 @@ int main(void)
   MX_UART5_Init();
   MX_UART7_Init();
   MX_USART6_UART_Init();
+  MX_LPTIM3_Init();
+  MX_TIM13_Init();
+  MX_TIM14_Init();
   /* USER CODE BEGIN 2 */
   User();
   /* USER CODE END 2 */
