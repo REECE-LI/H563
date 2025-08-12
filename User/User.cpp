@@ -15,14 +15,10 @@
 
 #include <string.h>
 
-
-
 void User(void)
 {
   RetargetInit(&huart1);
   HAL_Delay(1);
-
-
 
   // for (;;)
   // {
@@ -86,14 +82,28 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
   }
 }
 
-
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
+  if (htim->Instance == TIM3)
+  {
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+      // 这里处理 CC1 完成
+      dshot600_First.transferEnable(false);
+    }
 
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_2) {
+      // 这里处理 CC2 完成
+      dshot600_Second.transferEnable(false);
+    }
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_3) {
+      // 这里处理 CC3 完成
+      dshot600_Third.transferEnable(false);
+    }
+    if (htim->Channel == HAL_TIM_ACTIVE_CHANNEL_4) {
+      // 这里处理 CC4 完成
+      dshot600_Forth.transferEnable(false);
+    }
+  }
 }
 
-void TIM_DMADelayPulseCplt(DMA_HandleTypeDef *hdma)
-{
-
-
-}
+void TIM_DMADelayPulseCplt(DMA_HandleTypeDef *hdma) {}

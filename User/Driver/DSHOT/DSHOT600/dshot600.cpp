@@ -26,7 +26,7 @@ void Dshot600::encodePacket(uint16_t packet)
   // temp_buf[17] = 0; // Reset pulse (2us)
 
   // 一次性复制到主缓冲区
-  memcpy(ccr_buf_, temp_buf, DSHOT_SEND_BITS);
+  memcpy(ccr_buf_, temp_buf, sizeof(temp_buf));
 }
 
 uint8_t Dshot600::computeCRC(uint16_t valueWithTelemetry) const
@@ -57,7 +57,7 @@ void Dshot600::startDmaTransfer()
   //   return;
   // busy_ = true;
 
-  HAL_TIM_PWM_Start_DMA(htim_, channel_, (uint32_t *)ccr_buf_, DSHOT_SEND_BITS);
+  HAL_TIM_PWM_Start_DMA(htim_, channel_, (uint32_t *)ccr_buf_, DSHOT_SEND_BITS*2);
 }
 
 void Dshot600::stopDmaTransfer() { HAL_TIM_PWM_Stop_DMA(htim_, channel_); }
