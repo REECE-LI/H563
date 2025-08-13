@@ -37,9 +37,9 @@ void StartDefaultTask(void *argument)
   dshot600_Forth.send(0, 0);
 
   dshot600_First.transferEnable(true);
-  // dshot600_Second.transferEnable(true);
-  // dshot600_Third.transferEnable(true);
-  // dshot600_Forth.transferEnable(true);
+  dshot600_Second.transferEnable(true);
+  dshot600_Third.transferEnable(true);
+  dshot600_Forth.transferEnable(true);
 #endif
 
   for (;;)
@@ -51,13 +51,16 @@ void StartDefaultTask(void *argument)
 
 #if DSHOT_TEST
     // __HAL_TIM_ENABLE_DMA(&htim3, TIM_DMA_CC1);
-    dshot600_First.transferEnable(true);
-    dshot600_Second.transferEnable(true);
-    dshot600_Third.transferEnable(true);
-    dshot600_Forth.transferEnable(true);
+    // dshot600_First.transferEnable(true);
+    // osDelay(2);
+    // dshot600_Second.transferEnable(true);
+    // osDelay(2);
+    // dshot600_Third.transferEnable(true);
+    // osDelay(2);
+    // dshot600_Forth.transferEnable(true);
 
 #endif
 
-    osDelay(1);
+    osDelay(2);
   }
 }
