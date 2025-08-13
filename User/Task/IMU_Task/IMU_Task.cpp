@@ -24,12 +24,13 @@ void Start_IMU_Task(void *argument)
   // 可能需要校准IMU，但是当前程序上电自动校准
 
   osDelay(500);
-#if 1
+#if 0
   shellDisplay(&shell, "\r\nIMU Task is not running, please check the configuration.\r\n");
   // 获取当前任务句柄并终止任务
   osThreadId_t currentTaskHandle = osThreadGetId();
   osThreadTerminate(currentTaskHandle);
-
+#else
+  shellDisplay(&shell, "\r\nIMU Task is running!!!\r\n");
 #endif
 
   HAL_UART_Receive_DMA(&huart4, jy931Data, JY931_BUF_LEN);

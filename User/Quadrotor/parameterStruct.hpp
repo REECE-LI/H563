@@ -7,6 +7,6 @@
 
 
 #define IMU_TEST 0
-#define DSHOT_TEST 1
+#define DSHOT_TEST 0
 
 #endif //PARAMETER_HPP
