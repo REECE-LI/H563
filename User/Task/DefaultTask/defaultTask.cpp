@@ -16,9 +16,9 @@ JY931 IMU_JY931(&huart4);
 
 // 电机顺序需要具体确认
 Dshot600 dshot600_First(&htim3, TIM_CHANNEL_4);
-Dshot600 dshot600_Second(&htim3, TIM_CHANNEL_2);
+Dshot600 dshot600_Second(&htim3, TIM_CHANNEL_1);
 Dshot600 dshot600_Third(&htim3, TIM_CHANNEL_3);
-Dshot600 dshot600_Forth(&htim3, TIM_CHANNEL_1);
+Dshot600 dshot600_Forth(&htim3, TIM_CHANNEL_2);
 
 Quadrotor quadrotor(&IMU_JY931, &dshot600_First, &dshot600_Second, &dshot600_Third,
                     &dshot600_Forth);
