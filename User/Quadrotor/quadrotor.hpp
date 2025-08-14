@@ -16,7 +16,7 @@ public:
   {
   }
 
-  [[nodiscard]] IMU getIMU() const;
+
 
   void motorUpdate(bool _useMotion);
 
@@ -31,7 +31,12 @@ public:
 
   void motorInit();
 
+  [[nodiscard]] IMU getIMU() const;
+
+  const IMU::SensorDataFull& getIMUData(bool xy_invert) noexcept;
+
   bool useMotion = false;
+  bool xyInvert = true; // 是否需要 XY 轴反转
 private:
   IMU *imu = nullptr;
   Dshot *firstMotor = nullptr;
@@ -43,6 +48,8 @@ private:
   uint16_t secondMotorThrottle = 0;
   uint16_t thirdMotorThrottle = 0;
   uint16_t forthMotorThrottle = 0;
+
+  IMU::SensorDataFull sensorData{};
 };
 
 #endif // QUADROTOR_HPP

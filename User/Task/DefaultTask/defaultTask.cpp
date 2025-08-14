@@ -65,6 +65,6 @@ void StartDefaultTask(void *argument)
     // 什么都不做，DMA循环发送
 #endif
 
-    osDelay(2);
+    osDelay(1);
   }
 }

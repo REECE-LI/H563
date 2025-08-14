@@ -4,7 +4,7 @@
 
 #include "quadrotor.hpp"
 
-IMU Quadrotor::getIMU() const { return *imu; }
+#include <bits/move.h>
 
 void Quadrotor::motorUpdate(bool _useMotion)
 {
@@ -58,4 +58,24 @@ void Quadrotor::motorInit()
   secondMotor->transferEnable(true);
   thirdMotor->transferEnable(true);
   forthMotor->transferEnable(true);
+}
+
+IMU Quadrotor::getIMU() const { return *imu; }
+
+const IMU::SensorDataFull& Quadrotor::getIMUData(bool xy_invert) noexcept {
+  // 拿到“快照”（你的 IMU::getSensorData() 当前是按值返回，线程安全且简单）
+  IMU::SensorDataFull raw = imu->getSensorData();
+
+  // 基础复制
+  sensorData = raw;
+
+  // 可选 XY 互换（加速度/陀螺/磁力计）
+  if (xy_invert) {
+    std::swap(sensorData.acc.x,  sensorData.acc.y);
+    std::swap(sensorData.gyro.x, sensorData.gyro.y);
+    std::swap(sensorData.angle.x, sensorData.angle.y);
+    std::swap(sensorData.mag[0], sensorData.mag[1]); // 若无mag就去掉这一行
+  }
+
+  return sensorData; // 返回只读引用，无拷贝、无需判空
 }
