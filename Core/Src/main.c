@@ -116,6 +116,7 @@ int main(void)
   MX_LPTIM3_Init();
   MX_TIM13_Init();
   MX_TIM14_Init();
+  MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   User();
   /* USER CODE END 2 */
@@ -212,19 +213,19 @@ void SystemClock_Config(void)
   * @param  htim : TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM1)
-  {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
+// void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+// {
+//   /* USER CODE BEGIN Callback 0 */
+//
+//   /* USER CODE END Callback 0 */
+//   if (htim->Instance == TIM1)
+//   {
+//     HAL_IncTick();
+//   }
+//   /* USER CODE BEGIN Callback 1 */
+//
+//   /* USER CODE END Callback 1 */
+// }
 
 /**
   * @brief  This function is executed in case of error occurrence.

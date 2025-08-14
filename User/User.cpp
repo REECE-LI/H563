@@ -9,6 +9,7 @@
 #include "IMU_Task.h"
 #include "LetterShell/shell.h"
 #include "app_freertos.h"
+#include "quadrotor.hpp"
 #include "retarget.h"
 #include "tim.h"
 #include "usart.h"
@@ -19,7 +20,6 @@ void User(void)
 {
   RetargetInit(&huart1);
   HAL_Delay(1);
-
 }
 
 extern JY931 IMU_JY931;
@@ -58,7 +58,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   }
 }
 
-
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
   ShellMsgPtr_t msg{};
@@ -78,7 +77,27 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
   if (htim->Instance == TIM3)
   {
-
   }
 }
 
+extern Quadrotor quadrotor;
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+
+  if (htim->Instance == TIM1)
+  {
+    HAL_IncTick();
+  }
+
+  if (htim->Instance == TIM4)
+  {
+    // 10KHZ
+#if 1
+    quadrotor.motorUpdate(quadrotor.useMotion);
+    quadrotor.setMotorThrottle(quadrotor.getFirstMotorThrottle(), quadrotor.getSecondMotorThrottle(),
+                               quadrotor.getThirdMotorThrottle(), quadrotor.getForthMotorThrottle());
+#else
+
+#endif
+  }
+}

@@ -66,7 +66,8 @@ include_directories(Core/Inc
         User/Task/IMU_Task
         User/Quadrotor
         User/Driver/DSHOT
-        /User/LetterShell
+        User/LetterShell
+        User/Driver/MotionPlanner
 )
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H563xx)
@@ -81,6 +82,7 @@ file(GLOB_RECURSE SOURCES "Core/*.*"
         "User/Task/*.*"
         "User/Quadrotor/*.*"
         "User/LetterShell/*.*"
+        "User/Driver/MotionPlanner/*.*"
 )
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H563RITX_FLASH.ld)

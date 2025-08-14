@@ -27,7 +27,7 @@ public:
   IMU() = default;
   ~IMU() = default;
 
-  SensorDataFull getSensorData() const;
+  [[nodiscard]] SensorDataFull getSensorData() const;
 
 
 protected:

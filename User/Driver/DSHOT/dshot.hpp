@@ -4,6 +4,7 @@
 
 #ifndef DSHOT_HPP
 #define DSHOT_HPP
+#include "Driver/MotionPlanner/motion_planner.hpp"
 #include <cstdint>
 
 // 当前是单缓冲，可以拓展至双缓冲
@@ -14,6 +15,16 @@ public:
 
   virtual void init() = 0;
   void unlockDhot();
+
+  void attachMotionPlanner(MotionPlanner *_motionPlanner);
+
+  void setTargetThrottle(uint16_t _throttle);
+
+  void motionPlannerUpdate();
+
+  uint16_t getMotionPlannerThrottle();
+
+  uint16_t getTargetThrottle();
 
   // throttle: 0~2047, telemetry: 0 or 1
   void send(uint16_t throttle, uint8_t telemetry);
@@ -33,6 +44,14 @@ protected:
 
   // 状态防抖：正在发送中则拒绝新发
   bool busy_ = false;
+
+private:
+  MotionPlanner *motionPlanner = nullptr; // 可选的运动规划器
+
+  uint16_t targetThrottle = 0;
+
+  uint16_t outputThrottle = 0;
+
 };
 
 #endif // DSHOT_HPP
