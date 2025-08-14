@@ -57,6 +57,7 @@ extern "C" {
 extern osThreadId_t defaultTaskHandle;
 extern osThreadId_t IMU_TaskHandle;
 extern osThreadId_t shellTaskHandle;
+extern osThreadId_t dataTaskHandle;
 extern osMutexId_t IMU_MutexHandle;
 extern osMessageQueueId_t IMU_QueueHandle;
 extern osMessageQueueId_t shellQueueHandle;
@@ -69,6 +70,7 @@ extern osMessageQueueId_t shellQueueHandle;
 void StartDefaultTask(void *argument);
 void Start_IMU_Task(void *argument);
 void StartShellTask(void *argument);
+void StartDataTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 

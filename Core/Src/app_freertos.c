@@ -49,7 +49,7 @@
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal1,
   .stack_size = 512 * 4
 };
 /* Definitions for IMU_Task */
@@ -63,8 +63,15 @@ const osThreadAttr_t IMU_Task_attributes = {
 osThreadId_t shellTaskHandle;
 const osThreadAttr_t shellTask_attributes = {
   .name = "shellTask",
-  .priority = (osPriority_t) osPriorityNormal3,
+  .priority = (osPriority_t) osPriorityNormal,
   .stack_size = 128 * 4
+};
+/* Definitions for dataTask */
+osThreadId_t dataTaskHandle;
+const osThreadAttr_t dataTask_attributes = {
+  .name = "dataTask",
+  .priority = (osPriority_t) osPriorityBelowNormal7,
+  .stack_size = 512 * 4
 };
 /* Definitions for IMU_Mutex */
 osMutexId_t IMU_MutexHandle;
@@ -127,6 +134,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of shellTask */
   shellTaskHandle = osThreadNew(StartShellTask, NULL, &shellTask_attributes);
 
+  /* creation of dataTask */
+  dataTaskHandle = osThreadNew(StartDataTask, NULL, &dataTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -188,6 +198,24 @@ __weak void StartShellTask(void *argument)
     osDelay(1);
   }
   /* USER CODE END shellTask */
+}
+
+/* USER CODE BEGIN Header_StartDataTask */
+/**
+* @brief Function implementing the dataTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartDataTask */
+__weak void StartDataTask(void *argument)
+{
+  /* USER CODE BEGIN dataTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END dataTask */
 }
 
 /* Private application code --------------------------------------------------*/
