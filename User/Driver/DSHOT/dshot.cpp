@@ -37,7 +37,8 @@ void Dshot::attachMotionPlanner(MotionPlanner *_motionPlanner)
 
 void Dshot::setTargetThrottle(uint16_t _throttle)
 {
-  motionPlanner->setTarget(_throttle);
+  targetThrottle = _throttle;
+  motionPlanner->setTarget(targetThrottle);
 }
 
 void Dshot::motionPlannerUpdate()

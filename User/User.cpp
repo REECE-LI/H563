@@ -92,12 +92,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim->Instance == TIM4)
   {
     // 10KHZ
-#if 1
     quadrotor.motorUpdate(quadrotor.useMotion);
     quadrotor.setMotorThrottle(quadrotor.getFirstMotorThrottle(), quadrotor.getSecondMotorThrottle(),
                                quadrotor.getThirdMotorThrottle(), quadrotor.getForthMotorThrottle());
-#else
 
-#endif
   }
 }

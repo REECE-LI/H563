@@ -25,7 +25,6 @@
 #include "i2c.h"
 #include "icache.h"
 #include "lptim.h"
-#include "memorymap.h"
 #include "tim.h"
 #include "usart.h"
 #include "usb.h"
@@ -123,7 +122,6 @@ int main(void)
 
   /* Init scheduler */
   osKernelInitialize();
-
   /* Call init function for freertos objects (in app_freertos.c) */
   MX_FREERTOS_Init();
 
@@ -216,14 +214,14 @@ void SystemClock_Config(void)
 // void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 // {
 //   /* USER CODE BEGIN Callback 0 */
-//
+// //
 //   /* USER CODE END Callback 0 */
 //   if (htim->Instance == TIM1)
 //   {
 //     HAL_IncTick();
 //   }
 //   /* USER CODE BEGIN Callback 1 */
-//
+// //
 //   /* USER CODE END Callback 1 */
 // }
 
@@ -241,8 +239,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

@@ -57,10 +57,12 @@ static void shellDshotCommand(int argc, char *argv[])
     dshot600_Second.transferEnable(false);
     dshot600_Third.transferEnable(false);
     dshot600_Forth.transferEnable(false);
-    dshot600_First.send(throttle, telemetry);
-    dshot600_Second.send(throttle, telemetry);
-    dshot600_Third.send(throttle, telemetry);
-    dshot600_Forth.send(throttle, telemetry);
+
+    dshot600_First.setTargetThrottle(throttle);
+    dshot600_Second.setTargetThrottle(throttle);
+    dshot600_Third.setTargetThrottle(throttle);
+    dshot600_Forth.setTargetThrottle(throttle);
+
     dshot600_First.transferEnable(true);
     dshot600_Second.transferEnable(true);
     dshot600_Third.transferEnable(true);
@@ -74,32 +76,28 @@ static void shellDshotCommand(int argc, char *argv[])
     dshot600_First.send(throttle, telemetry);
     dshot600_First.transferEnable(true);
 
-    // sprintf(buffer, "Dshot 1 sent: %d with telemetry %d\r\n", throttle, telemetry);
-    // shellDisplay(&shell, buffer);
+
     break;
   case 2:
     dshot600_Second.transferEnable(false);
     dshot600_Second.send(throttle, telemetry);
     dshot600_Second.transferEnable(true);
 
-    // sprintf(buffer, "Dshot 2 sent: %d with telemetry %d\r\n", throttle, telemetry);
-    // shellDisplay(&shell, buffer);
+
     break;
   case 3:
     dshot600_Third.transferEnable(false);
     dshot600_Third.send(throttle, telemetry);
     dshot600_Third.transferEnable(true);
 
-    // sprintf(buffer, "Dshot 3 sent: %d with telemetry %d\r\n", throttle, telemetry);
-    // shellDisplay(&shell, buffer);
+
     break;
   case 4:
     dshot600_Forth.transferEnable(false);
     dshot600_Forth.send(throttle, telemetry);
     dshot600_Forth.transferEnable(true);
 
-    // sprintf(buffer, "Dshot 4 sent: %d with telemetry %d\r\n", throttle, telemetry);
-    // shellDisplay(&shell, buffer);
+
     break;
   default:
 
