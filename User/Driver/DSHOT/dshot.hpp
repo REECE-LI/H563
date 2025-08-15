@@ -27,7 +27,7 @@ public:
   uint16_t getTargetThrottle();
 
   // throttle: 0~2047, telemetry: 0 or 1
-  void send(uint16_t throttle, uint8_t telemetry);
+  void send(uint16_t _throttle, uint8_t _telemetry);
 
   void transferEnable(bool _enable);
 

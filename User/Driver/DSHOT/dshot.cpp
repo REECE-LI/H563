@@ -6,13 +6,10 @@
 #include "User.hpp"
 
 
-void Dshot::send(uint16_t throttle, uint8_t telemetry)
+void Dshot::send(uint16_t _throttle, uint8_t _telemetry)
 {
-    // if (busy_)
-    //   return; // 正在发送，丢弃或可以排队（可扩展）
-  uint16_t packet = buildPacket(throttle, telemetry);
+  uint16_t packet = buildPacket(_throttle, _telemetry);
   encodePacket(packet);
-
 }
 
 void Dshot::transferEnable(bool _enable)
