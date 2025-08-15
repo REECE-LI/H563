@@ -95,6 +95,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     quadrotor.motorUpdate(quadrotor.useMotion);
     quadrotor.setMotorThrottle(quadrotor.getFirstMotorThrottle(), quadrotor.getSecondMotorThrottle(),
                                quadrotor.getThirdMotorThrottle(), quadrotor.getForthMotorThrottle());
-
+    // PC3 Tog
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_3); // 仅用于调试
   }
 }

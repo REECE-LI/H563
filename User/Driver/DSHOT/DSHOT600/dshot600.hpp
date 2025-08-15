@@ -28,7 +28,7 @@ protected:
 
 private:
   static constexpr uint16_t DSHOT_BITS = 16;
-  static constexpr uint16_t DSHOT_SEND_BITS = 50; //
+  static constexpr uint16_t DSHOT_SEND_BITS = 120; //
   static constexpr uint16_t DSHOT_T1H = 320;    // “1” high length
   static constexpr uint16_t DSHOT_T0H = 160;    // “0” high length
 

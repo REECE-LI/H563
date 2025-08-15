@@ -43,8 +43,10 @@ uint8_t Dshot600::computeCRC(uint16_t valueWithTelemetry) const
 
 uint16_t Dshot600::buildPacket(uint16_t throttle, uint8_t telemetry) const
 {
-  if (throttle > 2047)
-    throttle = 2047;
+  // 清理输入，避开命令区
+  if (throttle > 2047) throttle = 2047;
+  if (throttle > 0 && throttle < 48) throttle = 48;
+
   uint16_t payload = (throttle << 1) | (telemetry ? 1 : 0); // 12-bit
   uint8_t crc = computeCRC(payload);
   return (payload << 4) | crc; // 16-bit packet
